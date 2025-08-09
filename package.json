@@ -27,9 +27,9 @@
     "test:watch": "NODE_ENV=test vitest",
     "test:coverage": "NODE_ENV=test vitest run --coverage",
     "prepublishOnly": "npm run build && npm run type-check",
-    "demo:dev": "vite demo",
-    "demo:build": "vite build demo",
-    "demo:preview": "vite preview demo"
+    "demo:dev": "vite",
+    "demo:build": "vite build",
+    "demo:preview": "vite preview"
   },
   "keywords": [
     "rag",

@@ -12,10 +12,15 @@ export default defineConfig({
         'dist/',
         'demo/',
         '*.config.ts',
+        '*.config.mjs',
+        '*.config.js',
         '**/*.d.ts',
         '**/*.test.ts',
         '**/*.spec.ts',
-        '**/types/**'
+        '**/types/**',
+        'vite.config.mjs',
+        'vitest.config.ts',
+        'tsup.config.ts'
       ],
       thresholds: {
         lines: 80,

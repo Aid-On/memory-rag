@@ -7,6 +7,7 @@ import type { SearchResult } from '../types';
 /**
  * Create a RAG tool for Vercel AI SDK
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createRAGTool(sessionId: string = 'global') {
   // @ts-expect-error - Tool function type issue with Vercel AI SDK
   return tool({
@@ -55,6 +56,7 @@ export async function createRAGContext(
 /**
  * Stream RAG-enhanced responses
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function streamRAGResponse({
   messages,
   sessionId = 'global',
@@ -97,6 +99,7 @@ export async function streamRAGResponse({
 /**
  * Generate RAG-enhanced responses
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function generateRAGResponse({
   messages,
   sessionId = 'global',

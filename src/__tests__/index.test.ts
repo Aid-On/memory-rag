@@ -42,7 +42,7 @@ describe('Factory Functions', () => {
       
       expect(results.success).toBe(true);
       expect(results.results).toBeDefined();
-      expect(results.results!.length).toBeGreaterThan(0);
+      expect(results.results?.length).toBeGreaterThan(0);
     });
 
     it('should apply custom configuration', () => {

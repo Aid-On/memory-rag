@@ -26,7 +26,11 @@ export function getStore(
     sessionStores.set(sessionId, new InMemoryVectorStore(embeddingProvider));
   }
   
-  return sessionStores.get(sessionId)!;
+  const store = sessionStores.get(sessionId);
+  if (!store) {
+    throw new Error(`Failed to create or retrieve store for session: ${sessionId}`);
+  }
+  return store;
 }
 
 /**

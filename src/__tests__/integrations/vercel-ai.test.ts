@@ -35,15 +35,13 @@ describe('Vercel AI Integration', () => {
 
   describe('createRAGContext', () => {
     it('should return empty string when no results', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const context = await createRAGContext('test query', 'empty-session', 3);
       expect(context).toBe('');
     });
 
     it('should create context from search results', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
-      const store = getStore('context-session', mockProvider);
+      const store = getStore('context-session', new MockEmbeddingProvider());
       await store.addDocument('Test document content', { source: 'test' });
       
       const context = await createRAGContext('test', 'context-session', 1);
@@ -54,10 +52,9 @@ describe('Vercel AI Integration', () => {
 
   describe('addDocumentToRAG', () => {
     it('should add a document to the RAG store', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
       // Pre-create the store with mock provider
-      getStore('add-session', mockProvider);
+      getStore('add-session', new MockEmbeddingProvider());
       
       const id = await addDocumentToRAG(
         'This is a test document',
@@ -69,10 +66,9 @@ describe('Vercel AI Integration', () => {
     });
 
     it('should add document to global store by default', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
       // Pre-create the global store with mock provider
-      getStore('global', mockProvider);
+      getStore('global', new MockEmbeddingProvider());
       
       const id = await addDocumentToRAG('Global document');
       expect(id).toBeDefined();
@@ -81,10 +77,9 @@ describe('Vercel AI Integration', () => {
 
   describe('bulkAddDocumentsToRAG', () => {
     it('should add multiple documents', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
       // Pre-create the store with mock provider
-      getStore('bulk-session', mockProvider);
+      getStore('bulk-session', new MockEmbeddingProvider());
       
       const documents = [
         { content: 'Document 1', metadata: { index: 1 } },
@@ -98,10 +93,9 @@ describe('Vercel AI Integration', () => {
     });
 
     it('should work with global store', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
       // Pre-create the global store with mock provider
-      getStore('global', mockProvider);
+      getStore('global', new MockEmbeddingProvider());
       
       const documents = [
         { content: 'Global doc 1' },
@@ -115,9 +109,8 @@ describe('Vercel AI Integration', () => {
 
   describe('clearRAGSession', () => {
     it('should clear a specific session', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
-      const store = getStore('clear-session', mockProvider);
+      const store = getStore('clear-session', new MockEmbeddingProvider());
       
       // Add documents first
       await store.addDocument('To be cleared', {});
@@ -138,9 +131,8 @@ describe('Vercel AI Integration', () => {
 
   describe('searchRAG', () => {
     it('should search documents in a session', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
-      const store = getStore('search-session', mockProvider);
+      const store = getStore('search-session', new MockEmbeddingProvider());
       
       // Add test documents
       await store.addDocument('JavaScript is a programming language', {});
@@ -154,9 +146,8 @@ describe('Vercel AI Integration', () => {
     });
 
     it('should respect topK parameter', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
-      const store = getStore('topk-session', mockProvider);
+      const store = getStore('topk-session', new MockEmbeddingProvider());
       
       await store.addDocument('Document 1', {});
       await store.addDocument('Document 2', {});
@@ -167,9 +158,8 @@ describe('Vercel AI Integration', () => {
     });
 
     it('should search in global store by default', async () => {
-      const mockProvider = new MockEmbeddingProvider();
       const { getStore } = await import('../../services/store-manager');
-      const store = getStore('global', mockProvider);
+      const store = getStore('global', new MockEmbeddingProvider());
       
       await store.addDocument('Global search test');
       const results = await searchRAG('Global search test');

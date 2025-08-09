@@ -81,16 +81,25 @@ export class InMemoryVectorStore implements IVectorStore {
 
     const queryEmbedding = await this.embeddingProvider.createEmbedding(query);
     
-    const scores = this.index.embeddings.map((embedding, index) => ({
-      id: this.index.ids[index]!,
-      score: this.cosineSimilarity(queryEmbedding, embedding),
-    }));
+    const scores = this.index.embeddings.map((embedding, index) => {
+      const id = this.index.ids[index];
+      if (!id) {
+        throw new Error(`Missing ID at index ${index}`);
+      }
+      return {
+        id,
+        score: this.cosineSimilarity(queryEmbedding, embedding),
+      };
+    });
     
     scores.sort((a, b) => b.score - a.score);
     const topResults = scores.slice(0, topK);
     
     return topResults.map(result => {
-      const doc = this.documents.get(result.id)!;
+      const doc = this.documents.get(result.id);
+      if (!doc) {
+        throw new Error(`Document not found for ID: ${result.id}`);
+      }
       return {
         id: doc.id,
         content: doc.content,
@@ -101,7 +110,7 @@ export class InMemoryVectorStore implements IVectorStore {
   }
 
   private cosineSimilarity(a: number[], b: number[]): number {
-    const dotProduct = a.reduce((sum, val, i) => sum + val * b[i]!, 0);
+    const dotProduct = a.reduce((sum, val, i) => sum + val * (b[i] ?? 0), 0);
     const normA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));
     const normB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));
     return dotProduct / (normA * normB);

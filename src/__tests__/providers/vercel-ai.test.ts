@@ -56,26 +56,32 @@ describe('Vercel AI Providers', () => {
 
   describe('Provider Registration', () => {
     it('should register language model provider', () => {
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
       const mockFactory = (model: string) => ({
         modelId: model,
         provider: 'test',
         specificationVersion: 'v1'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any);
       
-      registerLanguageModelProvider('test-llm', mockFactory);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+      registerLanguageModelProvider('test-llm', mockFactory as any);
       
       const providers = getAvailableProviders();
       expect(providers.llm).toContain('test-llm');
     });
 
     it('should register embedding model provider', () => {
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
       const mockFactory = (model: string) => ({
         modelId: model,
         provider: 'test',
         specificationVersion: 'v1'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any);
       
-      registerEmbeddingModelProvider('test-embed', mockFactory);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+      registerEmbeddingModelProvider('test-embed', mockFactory as any);
       
       const providers = getAvailableProviders();
       expect(providers.embedding).toContain('test-embed');

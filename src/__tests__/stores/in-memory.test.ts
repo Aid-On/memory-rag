@@ -120,7 +120,9 @@ describe('InMemoryVectorStore', () => {
       expect(stats.totalSize).toBeGreaterThan(0);
       expect(stats.oldestDocument).toBeInstanceOf(Date);
       expect(stats.newestDocument).toBeInstanceOf(Date);
-      expect(stats.newestDocument!.getTime()).toBeGreaterThanOrEqual(stats.oldestDocument!.getTime());
+      if (stats.newestDocument && stats.oldestDocument) {
+        expect(stats.newestDocument.getTime()).toBeGreaterThanOrEqual(stats.oldestDocument.getTime());
+      }
     });
   });
 

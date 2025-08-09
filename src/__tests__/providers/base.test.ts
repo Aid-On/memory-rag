@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { ModelBasedLLMProvider, ModelBasedEmbeddingProvider, defaultModels } from '../../providers/base';
 
 describe('Base Providers', () => {
   describe('ModelBasedLLMProvider', () => {
-    it('should generate text using provided model', async () => {
+    it('should generate text using provided model', () => {
       // Create a mock language model
       const mockModel = {
         modelId: 'test-model',
@@ -12,6 +12,7 @@ describe('Base Providers', () => {
       };
       
       // Mock the generateText function
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
       const provider = new ModelBasedLLMProvider(mockModel as any);
       
       // Since we can't easily mock the ai module, we'll just verify the provider is created
@@ -21,7 +22,7 @@ describe('Base Providers', () => {
   });
 
   describe('ModelBasedEmbeddingProvider', () => {
-    it('should create embeddings using provided model', async () => {
+    it('should create embeddings using provided model', () => {
       // Create a mock embedding model
       const mockModel = {
         modelId: 'test-embedding',
@@ -29,6 +30,7 @@ describe('Base Providers', () => {
         specificationVersion: 'v1'
       };
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
       const provider = new ModelBasedEmbeddingProvider(mockModel as any, 1536);
       
       expect(provider).toBeDefined();
@@ -43,6 +45,7 @@ describe('Base Providers', () => {
         specificationVersion: 'v1'
       };
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
       const provider = new ModelBasedEmbeddingProvider(mockModel as any, 3072);
       expect(provider.getDimensions()).toBe(3072);
     });

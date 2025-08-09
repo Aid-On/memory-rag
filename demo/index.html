@@ -1,100 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@aid-on/memory-rag Demo</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <div id="app">
-    <header>
-      <h1>🧠 Memory RAG Demo</h1>
-      <p>In-memory RAG implementation with Vercel AI SDK</p>
-    </header>
-
-    <main>
-      <section class="controls">
-        <div class="document-input">
-          <h2>📝 Add Documents</h2>
-          <textarea 
-            id="document-content" 
-            placeholder="Enter document content to add to the knowledge base..."
-            rows="4"
-          ></textarea>
-          <input 
-            type="text" 
-            id="document-metadata" 
-            placeholder="Metadata (optional): e.g., source=article, topic=AI"
-          />
-          <button id="add-document" class="btn btn-primary">Add Document</button>
-        </div>
-
-        <div class="sample-data">
-          <h3>Quick Start</h3>
-          <button id="load-samples" class="btn btn-secondary">Load Sample Documents</button>
-        </div>
-      </section>
-
-      <section class="search">
-        <h2>🔍 Search & Ask</h2>
-        <div class="search-controls">
-          <input 
-            type="text" 
-            id="search-query" 
-            placeholder="Ask a question or search for information..."
-          />
-          <div class="search-options">
-            <label>
-              <input type="number" id="top-k" value="3" min="1" max="10" />
-              Top K Results
-            </label>
-            <label>
-              <input type="checkbox" id="generate-answer" checked />
-              Generate AI Answer
-            </label>
-          </div>
-          <button id="search-btn" class="btn btn-primary">Search</button>
-        </div>
-      </section>
-
-      <section class="results">
-        <div class="stats">
-          <h3>📊 Store Statistics</h3>
-          <div id="stats-display">
-            <span>Documents: <strong id="doc-count">0</strong></span>
-            <span>Total Size: <strong id="total-size">0 KB</strong></span>
-          </div>
-        </div>
-
-        <div class="search-results">
-          <h3>🎯 Search Results</h3>
-          <div id="results-display" class="empty">
-            <p>No search performed yet</p>
-          </div>
-        </div>
-
-        <div class="ai-answer" id="ai-answer-section" style="display: none;">
-          <h3>🤖 AI Answer</h3>
-          <div id="ai-answer-display"></div>
-        </div>
-      </section>
-
-      <section class="actions">
-        <button id="clear-store" class="btn btn-danger">Clear All Documents</button>
-        <button id="export-data" class="btn btn-secondary">Export Data</button>
-      </section>
-    </main>
-
-    <footer>
-      <p>
-        <a href="https://github.com/Aid-On/memory-rag" target="_blank">GitHub</a> |
-        <a href="https://www.npmjs.com/package/@aid-on/memory-rag" target="_blank">NPM</a> |
-        <a href="https://github.com/Aid-On/memory-rag/issues" target="_blank">Issues</a>
-      </p>
-    </footer>
-  </div>
-
-  <script type="module" src="./main.js"></script>
-</body>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@aid-on/memory-rag - デモ</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
 </html>

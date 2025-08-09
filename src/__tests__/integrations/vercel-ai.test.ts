@@ -26,10 +26,13 @@ describe('Vercel AI Integration', () => {
 
   describe('createRAGTool', () => {
     it('should create a RAG tool', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const tool = createRAGTool('test-session');
       expect(tool).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(tool.description).toBeDefined();
-      expect(tool.parameters).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(tool.inputSchema).toBeDefined();
     });
   });
 

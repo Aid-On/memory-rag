@@ -14,7 +14,7 @@ describe('Provider Factories', () => {
       const provider = LLMProviderFactory.create('test-llm');
       
       expect(provider).toBeDefined();
-      expect(provider.getProviderName()).toBe('mock');
+      expect((provider as MockLLMProvider).getProviderName()).toBe('mock');
     });
 
     it('should list available providers', () => {
@@ -48,8 +48,8 @@ describe('Provider Factories', () => {
       const provider = EmbeddingProviderFactory.create('test-embed');
       
       expect(provider).toBeDefined();
-      expect(provider.getProviderName()).toBe('mock');
-      expect(provider.getDimensions()).toBe(1536);
+      expect((provider as MockEmbeddingProvider).getProviderName()).toBe('mock');
+      expect((provider as MockEmbeddingProvider).getDimensions()).toBe(1536);
     });
 
     it('should list available providers', () => {

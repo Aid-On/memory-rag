@@ -1,4 +1,4 @@
-import { streamText, generateText, tool } from 'ai';
+import { streamText, generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { z } from 'zod';
 import { getStore } from '../services/store-manager';
@@ -7,16 +7,16 @@ import type { SearchResult } from '../types';
 /**
  * Create a RAG tool for Vercel AI SDK
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function createRAGTool(sessionId: string = 'global') {
-  // @ts-expect-error - Tool function type issue with Vercel AI SDK
-  return tool({
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
+export function createRAGTool(sessionId: string = 'global'): any {
+  return {
     description: 'Search for relevant information from the knowledge base',
-    parameters: z.object({
-      query: z.string().describe('The search query'),
-      topK: z.number().optional().describe('Number of top results to retrieve'),
+    inputSchema: z.object({
+      query: z.string(),
+      topK: z.number().optional(),
     }),
-    execute: async (args: { query: string; topK?: number }) => {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    async onInput(args: { query: string; topK?: number }) {
       const { query, topK = 3 } = args;
       const store = getStore(sessionId);
       const results = await store.search(query, topK);
@@ -30,7 +30,7 @@ export function createRAGTool(sessionId: string = 'global') {
         totalDocuments: store.size(),
       };
     },
-  });
+  };
 }
 
 /**
@@ -92,6 +92,7 @@ export async function streamRAGResponse({
   return streamText({
     model: openai(model),
     messages,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     tools: enableRAG ? { searchKnowledge: createRAGTool(sessionId) } : undefined,
   });
 }
@@ -135,6 +136,7 @@ export async function generateRAGResponse({
   return generateText({
     model: openai(model),
     messages,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     tools: enableRAG ? { searchKnowledge: createRAGTool(sessionId) } : undefined,
   });
 }

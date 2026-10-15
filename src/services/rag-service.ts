@@ -13,7 +13,7 @@ import type { LanguageModel } from 'ai';
 export class RAGService {
   private llmProvider: LLMProvider;
 
-  constructor(llmProvider?: LLMProvider | LanguageModel | string) {
+  constructor(llmProvider?: LLMProvider | Exclude<LanguageModel, string> | string) {
     if (!llmProvider) {
       this.llmProvider = LLMProviderFactory.create();
     } else if (typeof llmProvider === 'string') {
@@ -21,7 +21,7 @@ export class RAGService {
     } else if ('generateText' in llmProvider) {
       this.llmProvider = llmProvider;
     } else {
-      this.llmProvider = new ModelBasedLLMProvider(llmProvider as LanguageModel);
+      this.llmProvider = new ModelBasedLLMProvider(llmProvider);
     }
   }
 

@@ -25,7 +25,9 @@ export default defineConfig({
       thresholds: {
         lines: 80,
         functions: 80,
-        branches: 80,
+        // vitest 4 の v8 カバレッジは AST ベースで分岐を数える（デフォルト引数等も分岐扱い）ため、
+        // vitest 2 時代（91%）と同じテストでも約 66% と算出される。計測方式の変更に合わせて調整。
+        branches: 65,
         statements: 80
       }
     },
